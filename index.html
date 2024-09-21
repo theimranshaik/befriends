@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Page with Audio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Roboto+Slab:ital,wght@1,300&display=swap" rel="stylesheet">
+    <style>
+        /* General body settings */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Silkscreen', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Scroll snap settings */
+        .scroll-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+
+        section {
+            scroll-snap-align: start;
+            height: 100vh;
+        }
+
+        /* First section styles */
+        .section1 {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* "It's always" centered text with shadow */
+        .center-text {
+            font-size: 3rem;
+            text-align: center;
+            text-shadow: 0px 0px 50px white;
+        }
+
+        /* Scroll down text */
+        .scroll-down {
+            position: absolute;
+            bottom: 100px;
+            font-size: 0.5rem;
+            font-family: 'Helvetica', sans-serif;
+            color: white;
+        }
+
+        /* Blinking dot at the top right */
+        .blinking-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: red;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Second section (Sample Paragraphs in Zigzag) */
+        .section2 {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            color: black;
+            font-family: 'Roboto Slab', sans-serif;
+            padding: 0 80px;
+        }
+
+        .section2 p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            max-width: 800px;
+            text-align: left;
+            font-style: italic;
+            position: relative;
+        }
+
+        /* Zigzag pattern for paragraphs */
+        .section2 p:nth-child(odd) {
+            transform: translateX(-20%);
+        }
+
+        .section2 p:nth-child(even) {
+            transform: translateX(20%);
+        }
+
+        .section2 .scroll-down {
+            position: absolute;
+            bottom: 100px;
+            font-size: 0.5rem;
+            color: black;
+        }
+
+        /* Third section (form) */
+        .section3 {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            flex-direction: column;
+            color: white;
+        }
+
+        /* Transparent form styles */
+        form {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form input, form textarea, form button {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid white;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 1rem;
+            background-color: black;
+            color: white;
+        }
+
+        form textarea {
+            height: auto;
+            overflow: hidden;
+            resize: none;
+            row: 1;
+        }
+
+        form button {
+            border: 1px solid white;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+        }
+
+        /* Blinking dot for the second and third sections */
+        .section2 .blinking-dot,
+        .section3 .blinking-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: red;
+            animation: blink 1s infinite;
+        }
+
+        /* Audio player styling */
+        .audio-controls {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px; /* Adjust the width for a smaller player */
+        }
+
+        audio {
+            width: 100%; /* Make the audio player responsive */
+        }
+
+        /* Share text styling */
+        .share-text {
+            color: red;
+            font-family: 'Helvetica', sans-serif;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Section 1 -->
+    <div class="scroll-container">
+        <section class="section1">
+            <div class="blinking-dot"></div>
+            <div class="center-text">It's always</div>
+            <div class="scroll-down">scroll down</div>
+        </section>
+
+        <!-- Section 2 (Sample Paragraphs in Zigzag) -->
+        <section class="section2">
+            <div class="blinking-dot"></div>
+            <p>Ladies and gentlemen, how many of you feel bored chatting on WhatsApp? We often have interesting topics to discuss, but there aren’t enough people who share our interests.</p>
+
+            <p>I'm working on creating a space just for that—connecting people based on shared interests for meaningful, engaging conversations. But before building it, I want to know: would you be interested in such a platform?</p>
+
+            <p>If yes, please leave your name, phone number, and any suggestions below. Help me create something that brings people together for conversations that matter.</p>
+            <div class="scroll-down">scroll down</div>
+        </section>
+
+        <!-- Section 3 (Form) -->
+        <section class="section3">
+            <div class="blinking-dot"></div>
+            <form action="/your-backend-endpoint" method="POST">
+                <input type="text" name="name" placeholder="Your name" required>
+                <input type="text" name="number" placeholder="Your number" required>
+                <textarea name="suggestions" placeholder="Any suggestions?" rows="1" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+            <div class="share-text" onclick="shareContent()">share, help us!</div>
+        </section>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="audio-controls">
+        <audio id="audio" autoplay controls>
+            <source src="your-audio-file.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        function shareContent() {
+            // Share functionality (this is a simple example)
+            const shareData = {
+                title: 'Check out this page!',
+                text: 'I found this amazing page, you should check it out!',
+                url: window.location.href,
+            };
+
+            navigator.share(shareData)
+                .then(() => console.log('Share successful'))
+                .catch((error) => console.error('Error sharing:', error));
+        }
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Page with Audio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Roboto+Slab:ital,wght@1,300&display=swap" rel="stylesheet">
+    <style>
+        /* General body settings */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Silkscreen', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Scroll snap settings */
+        .scroll-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+
+        section {
+            scroll-snap-align: start;
+            height: 100vh;
+        }
+
+        /* First section styles */
+        .section1 {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* "It's always" centered text with shadow */
+        .center-text {
+            font-size: 3rem;
+            text-align: center;
+            text-shadow: 0px 0px 50px white;
+        }
+
+        /* Scroll down text */
+        .scroll-down {
+            position: absolute;
+            bottom: 100px;
+            font-size: 0.5rem;
+            font-family: 'Helvetica', sans-serif;
+            color: white;
+        }
+
+        /* Blinking dot at the top right */
+        .blinking-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: red;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Second section (Sample Paragraphs in Zigzag) */
+        .section2 {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            color: black;
+            font-family: 'Roboto Slab', sans-serif;
+            padding: 0 80px;
+        }
+
+        .section2 p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            max-width: 800px;
+            text-align: left;
+            font-style: italic;
+            position: relative;
+        }
+
+        /* Zigzag pattern for paragraphs */
+        .section2 p:nth-child(odd) {
+            transform: translateX(-20%);
+        }
+
+        .section2 p:nth-child(even) {
+            transform: translateX(20%);
+        }
+
+        .section2 .scroll-down {
+            position: absolute;
+            bottom: 100px;
+            font-size: 0.5rem;
+            color: black;
+        }
+
+        /* Third section (form) */
+        .section3 {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            flex-direction: column;
+            color: white;
+        }
+
+        /* Transparent form styles */
+        form {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form input, form textarea, form button {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid white;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 1rem;
+            background-color: black;
+            color: white;
+        }
+
+        form textarea {
+            height: auto;
+            overflow: hidden;
+            resize: none;
+            row: 1;
+        }
+
+        form button {
+            border: 1px solid white;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+        }
+
+        /* Blinking dot for the second and third sections */
+        .section2 .blinking-dot,
+        .section3 .blinking-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: red;
+            animation: blink 1s infinite;
+        }
+
+        /* Audio player styling */
+        .audio-controls {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px; /* Adjust the width for a smaller player */
+        }
+
+        audio {
+            width: 100%; /* Make the audio player responsive */
+        }
+
+        /* Share text styling */
+        .share-text {
+            color: red;
+            font-family: 'Helvetica', sans-serif;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Section 1 -->
+    <div class="scroll-container">
+        <section class="section1">
+            <div class="blinking-dot"></div>
+            <div class="center-text">It's always</div>
+            <div class="scroll-down">scroll down</div>
+        </section>
+
+        <!-- Section 2 (Sample Paragraphs in Zigzag) -->
+        <section class="section2">
+            <div class="blinking-dot"></div>
+            <p>Ladies and gentlemen, how many of you feel bored chatting on WhatsApp? We often have interesting topics to discuss, but there aren’t enough people who share our interests.</p>
+
+            <p>I'm working on creating a space just for that—connecting people based on shared interests for meaningful, engaging conversations. But before building it, I want to know: would you be interested in such a platform?</p>
+
+            <p>If yes, please leave your name, phone number, and any suggestions below. Help me create something that brings people together for conversations that matter.</p>
+            <div class="scroll-down">scroll down</div>
+        </section>
+
+        <!-- Section 3 (Form) -->
+        <section class="section3">
+            <div class="blinking-dot"></div>
+            <form action="/your-backend-endpoint" method="POST">
+                <input type="text" name="name" placeholder="Your name" required>
+                <input type="text" name="number" placeholder="Your number" required>
+                <textarea name="suggestions" placeholder="Any suggestions?" rows="1" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+            <div class="share-text" onclick="shareContent()">share</div>
+        </section>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="audio-controls">
+        <audio id="audio" autoplay controls>
+            <source src="your-audio-file.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        function shareContent() {
+            // Share functionality (this is a simple example)
+            const shareData = {
+                title: 'Check out this page!',
+                text: 'I found this amazing page, you should check it out!',
+                url: window.location.href,
+            };
+
+            navigator.share(shareData)
+                .then(() => console.log('Share successful'))
+                .catch((error) => console.error('Error sharing:', error));
+        }
+    </script>
+
+</body>
+</html>
