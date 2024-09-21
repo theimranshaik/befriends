@@ -167,11 +167,14 @@
             animation: blink 1s infinite;
         }
 
-        /* Audio player styling (optional) */
+        /* Audio player styling */
         audio {
             position: fixed;
             bottom: 60px;
-            right: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px; /* Reduced size */
+            height: 30px; /* Smaller height */
         }
     </style>
 </head>
@@ -190,9 +193,9 @@
             <div class="blinking-dot"></div>
             <p>Ladies and gentlemen, how many of you feel bored chatting on WhatsApp? We often have interesting topics to discuss, but there aren’t enough people who share our interests.</p>
 
-<p>I'm working on creating a space just for that—connecting people based on shared interests for meaningful, engaging conversations. But before building it, I want to know: would you be interested in such a platform?</p>
+            <p>I'm working on creating a space just for that—connecting people based on shared interests for meaningful, engaging conversations. But before building it, I want to know: would you be interested in such a platform?</p>
 
-<p>If yes, please leave your name, phone number, and any suggestions below. Help me create something that brings people together for conversations that matter.</p>
+            <p>If yes, please leave your name, phone number, and any suggestions below. Help me create something that brings people together for conversations that matter.</p>
             <div class="scroll-down">scroll down</div>
         </section>
 
@@ -209,7 +212,7 @@
         </section>
     </div>
 
-    <!-- Optional Audio Player -->
+    <!-- Minimal Audio Player -->
     <audio autoplay controls>
         <source src="your-audio-file.mp3" type="audio/mp3">
         Your browser does not support the audio element.
